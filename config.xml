@@ -4,6 +4,7 @@
 	<description>Phonegap Cordova geolocation</description>
 	<author email="mmmarcjr@gmail.com" href="http://cordova.io">Marc Morin</author>
 	<content src="index.html" />
+	<icon src="icon.png" />
 	<plugin name="cordova-plugin-geolocation" source="npm" spec="~2.1.0" />
 	<plugin name="cordova-plugin-whitelist" source="npm" version="~1" />
 	<preference name="DisallowOverscroll" value="true" />
