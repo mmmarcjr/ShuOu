@@ -51,7 +51,7 @@ function setMapHeight()
 {
 	var screen = $(".ui-content").height();
 	var info = $("#geoAddress").height();
-	alert(info);
+	$('#geoAddress').html($('#geoAddress').html() + '<br>height: ' + info);
 	$("#map").height(screen - info - 1);
 }
 
