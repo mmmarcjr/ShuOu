@@ -1,3 +1,6 @@
+var MapZoom = 15;
+var MapTypeId = google.maps.MapTypeId.ROADMAP;
+
 document.addEventListener("deviceready", onDeviceReady, false);
 
 $(window).on("orientationchange",function()
@@ -95,8 +98,14 @@ function onError(error)
 function showMap(latitude, longitude)
 {
 	var LatLng = new google.maps.LatLng(latitude, longitude);
-	var mapConfig = {zoom:15, center:LatLng, mapTypeId:google.maps.MapTypeId.ROADMAP}
+	var mapConfig = {zoom:MapZoom, center:LatLng, mapTypeId:MapTypeId}
 	var map = new google.maps.Map($('#map').get(0), mapConfig);
+	map.addListener('zoom_changed', function() {
+		MapZoom = map.getZoom();
+	});
+	google.maps.event.addListener(map, "maptypeid_changed", function() {
+			MapTypeId = map.getMapTypeId();
+	});
 	new google.maps.Marker({map:map, position:LatLng, animation: google.maps.Animation.DROP});
 	getAddress(LatLng);
 }
