@@ -45,7 +45,7 @@
 	<plugin name="cordova-plugin-geolocation" source="npm" spec="~2.1.0" />
 	<plugin name="cordova-plugin-whitelist" source="npm" version="~1" />
 	<preference name="DisallowOverscroll" value="true" />
-	<preference name="Fullscreen" value="true" />
+	<preference name="Fullscreen" value="false" />
 	<access origin="*" />
 	<allow-intent href="http://code.jquery.com/*" />
 	<allow-intent href="http://maps.google.com/*" />
