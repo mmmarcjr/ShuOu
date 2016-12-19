@@ -33,7 +33,7 @@
 		
 		<preference name="SplashMaintainAspectRatio" value="true" />
 		<preference name="SplashShowOnlyFirstTime" value="false" />
-		<preference name="SplashScreenDelay" value="3" /> <!-- defaults to "3000" -->
+		<preference name="SplashScreenDelay" value="3000" /> <!-- defaults to "3000" -->
 		
 		<icon qualifier="ldpi" src="res/icons/android/icon-36-ldpi.png"/>
 		<icon qualifier="mdpi" src="res/icons/android/icon-48-mdpi.png"/>
