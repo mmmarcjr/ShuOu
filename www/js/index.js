@@ -61,8 +61,6 @@ function setContentPage1()
 	var screen = $.mobile.getScreenHeight(); 
 	var header = $("#p1Header").outerHeight();
 	var footer = $("#p1footer").outerHeight();
-	
-	/* content div has padding of 1em = 16px (32px top+bottom). This step can be skipped by subtracting 32px from content var directly. */
 	var contentCurrent = $("#p1Content").outerHeight() - $("#p1Content").height();
 	var content = screen - header - footer - contentCurrent;
 	$("#p1Content").height(content);
