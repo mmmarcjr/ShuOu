@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.cordova.geolocation" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
 	<name>ShuOu</name>
-	<description>Phonegap Cordova geolocation</description>
+	<description>Get your address from current position</description>
 	<author email="mmmarcjr@gmail.com" href="http://cordova.io">Marc Morin</author>
 	<content src="index.html" />
 	
@@ -23,17 +23,17 @@
 	<allow-navigation href="http://maps.google.com/*" />
 	
 	<platform name="browser">
-		<preference name="SplashScreen" value="iconoriginal.png" /> <!-- defaults to "/img/logo.png" -->
-		<preference name="SplashScreenDelay" value="1000" /> <!-- defaults to "3000" -->
-		<!-- <preference name="SplashScreenBackgroundColor" value="green" /> defaults to "#464646" -->
-		<preference name="ShowSplashScreen" value="true" /> <!-- defaults to "true" -->
-	</platform>	
+		<preference name="SplashScreen" value="iconoriginal.png" />
+		<preference name="SplashScreenDelay" value="1000" />
+		<preference name="ShowSplashScreen" value="true" />
+	</platform>
+	
 	<platform name="android">
 		<allow-intent href="market:*" />
 		
 		<preference name="SplashMaintainAspectRatio" value="true" />
 		<preference name="SplashShowOnlyFirstTime" value="false" />
-		<preference name="SplashScreenDelay" value="3000" /> <!-- defaults to "3000" -->
+		<preference name="SplashScreenDelay" value="3000" />
 		
 		<icon qualifier="ldpi" src="res/icons/android/icon-36-ldpi.png"/>
 		<icon qualifier="mdpi" src="res/icons/android/icon-48-mdpi.png"/>

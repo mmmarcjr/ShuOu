@@ -92,6 +92,7 @@ function setMapHeight()
 function getCurrentPosition() 
 {
 	showLoading();
+	marker = undefined;
 	navigator.geolocation.getCurrentPosition(onSuccess, onError, { maximumAge: 1000, timeout: 5000, enableHighAccuracy: true } );
 }
 
@@ -119,10 +120,23 @@ function showMap(latitude, longitude)
 		MapZoom = map.getZoom();
 	});
 	google.maps.event.addListener(map, "maptypeid_changed", function() {
-			MapTypeId = map.getMapTypeId();
+		MapTypeId = map.getMapTypeId();
 	});
-	marker = new google.maps.Marker({map:map, position:LatLng, animation: google.maps.Animation.DROP});
-	getAddress(LatLng);
+	
+	placeMarker(LatLng);
+	google.maps.event.addListener(map, 'click', function(event) {
+		placeMarker(event.latLng);
+  });
+	
+}
+
+function placeMarker(location) 
+{
+	if (marker === undefined)
+		marker = new google.maps.Marker({map:map, position:location, animation: google.maps.Animation.DROP});
+	else
+		marker.setPosition(location);
+	getAddress(location);
 }
 
 function getAddress(LatLng)
