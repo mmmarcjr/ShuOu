@@ -10,7 +10,7 @@ $(window).on("orientationchange",function()
 	setContentPage1();
 	setMapHeight();
 	
-	setTimeout(function(){ setContentPage1();setMapHeight(); }, 100);
+	setTimeout(function(){ setContentPage1();setMapHeight(); }, 500);
 	
 });
 
@@ -80,7 +80,7 @@ function setMapHeight()
 	var info = $("#geoAddress").height();
 	$("#map").height(content - info - 1);
 	if (map !== undefined)
-		setTimeout(function(){ map.setCenter(marker.getPosition());}, 100);
+		setTimeout(function(){ map.setCenter(marker.getPosition());}, 500);
 }
 
 
