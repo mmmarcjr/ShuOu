@@ -9,10 +9,17 @@ $(window).on("orientationchange",function()
 {
 	setContentPage1();
 	setMapHeight();
-	
-	setTimeout(function(){ setContentPage1();setMapHeight(); }, 500);
-	
+	setTimeout(function() { SetContentHeight(); }, 100 );
+	setTimeout(function() { SetContentHeight(); }, 500 );
+	setTimeout(function() { SetContentHeight(); }, 800 );
 });
+
+function SetContentHeight()
+{
+	setContentPage1(); 
+	setMapHeight(); 
+	map.setCenter(marker.getPosition()); 
+}
 
 function onDeviceReady() 
 {
@@ -79,8 +86,6 @@ function setMapHeight()
 	var content = $("#p1Content").height();
 	var info = $("#geoAddress").height();
 	$("#map").height(content - info - 1);
-	if (map !== undefined)
-		setTimeout(function(){ map.setCenter(marker.getPosition());}, 500);
 }
 
 
