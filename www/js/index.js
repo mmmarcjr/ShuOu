@@ -18,7 +18,9 @@ function SetContentHeight()
 {
 	setContentPage1(); 
 	setMapHeight(); 
-	map.setCenter(marker.getPosition()); 
+	map.setCenter(marker.getPosition());
+	page.trigger('pagecreate');
+	page.listview('refresh');	
 }
 
 function onDeviceReady() 
@@ -82,7 +84,7 @@ function setMapHeight()
 {
 	if ($.mobile.activePage.attr( "id" ) != "page1")
 		return;
-		
+	
 	var content = $("#p1Content").height();
 	var info = $("#geoAddress").height();
 	$("#map").height(content - info - 1);
@@ -127,7 +129,6 @@ function showMap(latitude, longitude)
 	google.maps.event.addListener(map, 'click', function(event) {
 		placeMarker(event.latLng);
   });
-	
 }
 
 function placeMarker(location) 
@@ -147,7 +148,7 @@ function getAddress(LatLng)
 		if (status == google.maps.GeocoderStatus.OK) 
 		{
 			$('#geoAddress').html(address[0].formatted_address);
-				setMapHeight();
+			setMapHeight();
 		}
 	});
 }
