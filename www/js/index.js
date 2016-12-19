@@ -7,6 +7,7 @@ $(window).on("orientationchange",function()
 {
 	setContentPage1();
 	setMapHeight();
+	setTimeout(function(){setContentPage1();setMapHeight();}, 500);
 });
 
 function onDeviceReady() 
