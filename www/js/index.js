@@ -1,3 +1,5 @@
+var map;
+var marker;
 var MapZoom = 15;
 var MapTypeId = google.maps.MapTypeId.ROADMAP;
 
@@ -7,7 +9,9 @@ $(window).on("orientationchange",function()
 {
 	setContentPage1();
 	setMapHeight();
-	setTimeout(function(){setContentPage1();setMapHeight();}, 500);
+	
+	setTimeout(function(){ setContentPage1();setMapHeight(); }, 100);
+	
 });
 
 function onDeviceReady() 
@@ -72,10 +76,11 @@ function setMapHeight()
 	if ($.mobile.activePage.attr( "id" ) != "page1")
 		return;
 		
-	var screen = $("#p1Content").height();
-	//$('#geoAddress').html($('#geoAddress').html() + ' - height:' + $("#geoAddress").height());
+	var content = $("#p1Content").height();
 	var info = $("#geoAddress").height();
-	$("#map").height(screen - info - 1);
+	$("#map").height(content - info - 1);
+	if (map !== undefined)
+		setTimeout(function(){ map.setCenter(marker.getPosition());}, 100);
 }
 
 
@@ -104,14 +109,14 @@ function showMap(latitude, longitude)
 {
 	var LatLng = new google.maps.LatLng(latitude, longitude);
 	var mapConfig = {zoom:MapZoom, center:LatLng, mapTypeId:MapTypeId}
-	var map = new google.maps.Map($('#map').get(0), mapConfig);
+	map = new google.maps.Map($('#map').get(0), mapConfig);
 	map.addListener('zoom_changed', function() {
 		MapZoom = map.getZoom();
 	});
 	google.maps.event.addListener(map, "maptypeid_changed", function() {
 			MapTypeId = map.getMapTypeId();
 	});
-	new google.maps.Marker({map:map, position:LatLng, animation: google.maps.Animation.DROP});
+	marker = new google.maps.Marker({map:map, position:LatLng, animation: google.maps.Animation.DROP});
 	getAddress(LatLng);
 }
 
