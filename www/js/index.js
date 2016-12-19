@@ -7,10 +7,8 @@ document.addEventListener("deviceready", onDeviceReady, false);
 
 $(window).on("orientationchange",function()
 {
-	setContentPage1();
-	setMapHeight();
+	SetContentHeight();
 	setTimeout(function() { SetContentHeight(); }, 100 );
-	setTimeout(function() { SetContentHeight(); }, 500 );
 	setTimeout(function() { SetContentHeight(); }, 800 );
 });
 
@@ -18,9 +16,8 @@ function SetContentHeight()
 {
 	setContentPage1(); 
 	setMapHeight(); 
-	map.setCenter(marker.getPosition());
-	page.trigger('pagecreate');
-	page.listview('refresh');	
+	if (marker === undefined)
+		map.setCenter(marker.getPosition());
 }
 
 function onDeviceReady() 
