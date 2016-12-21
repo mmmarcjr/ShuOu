@@ -27,7 +27,16 @@ function onDeviceReady()
 	getCurrentPosition();
 }
 
+function Locate()
+{
+	setContentPage1();
+	initGeoInfo();
+	getCurrentPosition();
+}
 
+
+
+// Info
 function initGeoInfo()
 {
 	$('#geoAddress').html('Loading Current Position ...');
@@ -52,7 +61,19 @@ function setGeoInfo(position)
 	$('#geoTimestamp').html(position.timestamp);
 }
 
+function setGeoInfoLatLong(position)
+{
+	$('#geoLatitude').html(position.lat());
+	$('#geoLongitude').html(position.lng());
+	$('#geoAltitude').html('');
+	$('#geoAccuracy').html('');
+	$('#geoAlAc').html('');
+	$('#geoSpeed').html('');
+	$('#geoTimestamp').html('');
+}
 
+
+// Loading
 function showLoading()
 {
 	$.mobile.loading( 'show', {text: '', textVisible: 0, theme: 0, textonly: 0, html: ""});
@@ -64,6 +85,7 @@ function hideLoading()
 }
 
 
+// Desing display
 function setContentPage1()
 {
 	if ($.mobile.activePage.attr( "id" ) != "page1")
@@ -84,10 +106,11 @@ function setMapHeight()
 	
 	var content = $("#p1Content").height();
 	var info = $("#geoAddress").height();
-	$("#map").height(content - info - 1);
+	$("#map").height(content - info - 3);
 }
 
 
+// GPS
 function getCurrentPosition() 
 {
 	showLoading();
@@ -115,6 +138,7 @@ function showMap(latitude, longitude)
 	var LatLng = new google.maps.LatLng(latitude, longitude);
 	var mapConfig = {zoom:MapZoom, center:LatLng, mapTypeId:MapTypeId}
 	map = new google.maps.Map($('#map').get(0), mapConfig);
+	
 	map.addListener('zoom_changed', function() {
 		MapZoom = map.getZoom();
 	});
@@ -133,7 +157,10 @@ function placeMarker(location)
 	if (marker === undefined)
 		marker = new google.maps.Marker({map:map, position:location, animation: google.maps.Animation.DROP});
 	else
+	{
 		marker.setPosition(location);
+		setGeoInfoLatLong(location);
+	}
 	getAddress(location);
 }
 
@@ -145,7 +172,7 @@ function getAddress(LatLng)
 		if (status == google.maps.GeocoderStatus.OK) 
 		{
 			$('#geoAddress').html(address[0].formatted_address);
-			setMapHeight();
+			//setMapHeight();
 		}
 	});
 }
