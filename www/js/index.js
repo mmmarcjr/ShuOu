@@ -3,8 +3,6 @@ var marker;
 var MapZoom = 15;
 var MapTypeId = google.maps.MapTypeId.ROADMAP;
 
-document.addEventListener("deviceready", onDeviceReady, false);
-
 $(window).on("orientationchange",function()
 {
 	SetContentHeight();
@@ -20,6 +18,7 @@ function SetContentHeight()
 		map.setCenter(marker.getPosition());
 }
 
+document.addEventListener("deviceready", onDeviceReady, false);
 function onDeviceReady() 
 {
 	setContentPage1();
@@ -105,8 +104,9 @@ function setMapHeight()
 		return;
 	
 	var content = $("#p1Content").height();
+	var contentCurrent = $("#p1Content").outerHeight() - $("#p1Content").height();
 	var info = $("#geoAddress").height();
-	$("#map").height(content - info - 3);
+	$("#map").height(content - info - contentCurrent);
 }
 
 
