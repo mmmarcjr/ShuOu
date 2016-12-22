@@ -25,6 +25,8 @@ document.addEventListener("deviceready", onDeviceReady, false);
 function onDeviceReady() 
 {
 	Locate();
+	$( "#btnGeoInfo" ).click(function() { flipPage("#page2"); });
+	$( "#btnMap" ).click(function() { flipPage("#page1"); });
 }
 
 function Locate()
