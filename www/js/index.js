@@ -104,9 +104,8 @@ function setMapHeight()
 		return;
 	
 	var content = $("#p1Content").height();
-	var contentCurrent = $("#p1Content").outerHeight() - $("#p1Content").height();
-	var info = $("#geoAddress").height();
-	$("#map").height(content - info - contentCurrent);
+	var info = $("#geoAddress").outerHeight();
+	$("#map").height(content - info);
 }
 
 
