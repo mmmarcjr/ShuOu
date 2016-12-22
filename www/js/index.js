@@ -3,13 +3,13 @@ var marker;
 var MapZoom = 15;
 var MapTypeId = google.maps.MapTypeId.ROADMAP;
 
+/*
 $(window).on("orientationchange",function()
 {
 	SetContentHeight();
 	setTimeout(function() { SetContentHeight(); }, 100 );
 	setTimeout(function() { SetContentHeight(); }, 800 );
 });
-
 function SetContentHeight()
 {
 	setContentPage1(); 
@@ -17,13 +17,14 @@ function SetContentHeight()
 	if (marker === undefined)
 		map.setCenter(marker.getPosition());
 }
+*/
+
+
 
 document.addEventListener("deviceready", onDeviceReady, false);
 function onDeviceReady() 
 {
-	setContentPage1();
-	initGeoInfo();
-	getCurrentPosition();
+	Locate();
 }
 
 function Locate()
@@ -171,7 +172,7 @@ function getAddress(LatLng)
 		if (status == google.maps.GeocoderStatus.OK) 
 		{
 			$('#geoAddress').html(address[0].formatted_address);
-			//setMapHeight();
+			setMapHeight();
 		}
 	});
 }
