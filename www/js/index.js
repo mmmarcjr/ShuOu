@@ -34,6 +34,11 @@ function Locate()
 	getCurrentPosition();
 }
 
+function flipPage(page)
+{
+	$.mobile.changePage(page, { transition: 'flip'} );
+}
+
 
 
 // Info
