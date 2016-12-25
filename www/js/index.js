@@ -1,25 +1,7 @@
 var map;
 var marker;
-var MapZoom = 15;
+var MapZoom = 20;
 var MapTypeId = google.maps.MapTypeId.ROADMAP;
-
-/*
-$(window).on("orientationchange",function()
-{
-	SetContentHeight();
-	setTimeout(function() { SetContentHeight(); }, 100 );
-	setTimeout(function() { SetContentHeight(); }, 800 );
-});
-function SetContentHeight()
-{
-	setContentPage1(); 
-	setMapHeight(); 
-	if (marker === undefined)
-		map.setCenter(marker.getPosition());
-}
-*/
-
-
 
 document.addEventListener("deviceready", onDeviceReady, false);
 function onDeviceReady() 
