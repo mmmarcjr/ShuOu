@@ -1,18 +1,49 @@
-document.addEventListener("deviceready", onDeviceReady, false);
+var map;
+var marker;
+var MapZoom = 15;
+var MapTypeId = google.maps.MapTypeId.ROADMAP;
 
+/*
 $(window).on("orientationchange",function()
 {
-	setContentScreen();
-	setMapHeight();
+	SetContentHeight();
+	setTimeout(function() { SetContentHeight(); }, 100 );
+	setTimeout(function() { SetContentHeight(); }, 800 );
 });
+function SetContentHeight()
+{
+	setContentPage1(); 
+	setMapHeight(); 
+	if (marker === undefined)
+		map.setCenter(marker.getPosition());
+}
+*/
 
+
+
+document.addEventListener("deviceready", onDeviceReady, false);
 function onDeviceReady() 
 {
-	setContentScreen();
-	initGeoInfo();
-	getcur();
+	$( "#btnGeoInfo" ).click(function() { flipPage("#page2"); });
+	$( "#btnMap" ).click(function() { flipPage("#page1"); });
+	Locate();
 }
 
+function Locate()
+{
+	setContentPage1();
+	initGeoInfo();
+	getCurrentPosition();
+}
+
+function flipPage(page)
+{
+	$.mobile.changePage(page, { transition: 'flip'} );
+}
+
+
+
+// Info
 function initGeoInfo()
 {
 	$('#geoAddress').html('Loading Current Position ...');
@@ -26,6 +57,30 @@ function initGeoInfo()
 	$('#map').html('');
 }
 
+function setGeoInfo(position)
+{
+	$('#geoLatitude').html(position.coords.latitude);
+	$('#geoLongitude').html(position.coords.longitude);
+	$('#geoAltitude').html(position.coords.altitude);
+	$('#geoAccuracy').html(position.coords.accuracy);
+	$('#geoAlAc').html(position.coords.altitudeAccuracy);
+	$('#geoSpeed').html(position.coords.speed);
+	$('#geoTimestamp').html(position.timestamp);
+}
+
+function setGeoInfoLatLong(position)
+{
+	$('#geoLatitude').html(position.lat());
+	$('#geoLongitude').html(position.lng());
+	$('#geoAltitude').html('');
+	$('#geoAccuracy').html('');
+	$('#geoAlAc').html('');
+	$('#geoSpeed').html('');
+	$('#geoTimestamp').html('');
+}
+
+
+// Loading
 function showLoading()
 {
 	$.mobile.loading( 'show', {text: '', textVisible: 0, theme: 0, textonly: 0, html: ""});
@@ -36,44 +91,45 @@ function hideLoading()
 	$.mobile.loading( "hide" );
 }
 
-function setContentScreen()
+
+// Desing display
+function setContentPage1()
 {
-	var screen = $.mobile.getScreenHeight();
-	var header = $(".ui-header").hasClass("ui-header-fixed") ? $(".ui-header").outerHeight()  - 1 : $(".ui-header").outerHeight();
-	var footer = $(".ui-footer").hasClass("ui-footer-fixed") ? $(".ui-footer").outerHeight() - 1 : $(".ui-footer").outerHeight();
-	/* content div has padding of 1em = 16px (32px top+bottom). This step can be skipped by subtracting 32px from content var directly. */
-	var contentCurrent = $(".ui-content").outerHeight() - $(".ui-content").height();
+	if ($.mobile.activePage.attr( "id" ) != "page1")
+		return;
+		
+	var screen = $.mobile.getScreenHeight(); 
+	var header = $("#p1Header").outerHeight();
+	var footer = $("#p1footer").outerHeight();
+	var contentCurrent = $("#p1Content").outerHeight() - $("#p1Content").height();
 	var content = screen - header - footer - contentCurrent;
-	$(".ui-content").height(content);
+	$("#p1Content").height(content);
 }
 
 function setMapHeight()
 {
-	var screen = $(".ui-content").height();
-	var info = $("#geoAddress").height();
-	alert(info);
-	$("#map").height(screen - info - 1);
+	if ($.mobile.activePage.attr( "id" ) != "page1")
+		return;
+	
+	var content = $("#p1Content").height();
+	var info = $("#geoAddress").outerHeight();
+	$("#map").height(content - info);
 }
 
-function getcur() 
+
+// GPS
+function getCurrentPosition() 
 {
 	showLoading();
+	marker = undefined;
 	navigator.geolocation.getCurrentPosition(onSuccess, onError, { maximumAge: 1000, timeout: 5000, enableHighAccuracy: true } );
 }
 
 var onSuccess = function(position) 
 {
-	var lat = position.coords.latitude;
-	var lon = position.coords.longitude;
-	$('#geoLatitude').html(position.coords.latitude);
-	$('#geoLongitude').html(position.coords.longitude);
-	$('#geoAltitude').html(position.coords.altitude);
-	$('#geoAccuracy').html(position.coords.accuracy);
-	$('#geoAlAc').html(position.coords.altitudeAccuracy);
-	$('#geoSpeed').html(position.coords.speed);
-	$('#geoTimestamp').html(position.timestamp);
+	setGeoInfo(position);
 	setMapHeight();
-	showMap(lat, lon);
+	showMap(position.coords.latitude, position.coords.longitude);
 	hideLoading();
 };
 
@@ -83,13 +139,36 @@ function onError(error)
 	hideLoading();
 }
 
+
 function showMap(latitude, longitude)
 {
 	var LatLng = new google.maps.LatLng(latitude, longitude);
-	var mapConfig = {zoom:15, center:LatLng, mapTypeId:google.maps.MapTypeId.ROADMAP}
-	var map = new google.maps.Map($('#map').get(0), mapConfig);
-	new google.maps.Marker({map:map, position:LatLng, animation: google.maps.Animation.DROP});
-	getAddress(LatLng);
+	var mapConfig = {zoom:MapZoom, center:LatLng, mapTypeId:MapTypeId}
+	map = new google.maps.Map($('#map').get(0), mapConfig);
+	
+	map.addListener('zoom_changed', function() {
+		MapZoom = map.getZoom();
+	});
+	google.maps.event.addListener(map, "maptypeid_changed", function() {
+		MapTypeId = map.getMapTypeId();
+	});
+	
+	placeMarker(LatLng);
+	google.maps.event.addListener(map, 'click', function(event) {
+		placeMarker(event.latLng);
+  });
+}
+
+function placeMarker(location) 
+{
+	if (marker === undefined)
+		marker = new google.maps.Marker({map:map, position:location, animation: google.maps.Animation.DROP});
+	else
+	{
+		marker.setPosition(location);
+		setGeoInfoLatLong(location);
+	}
+	getAddress(location);
 }
 
 function getAddress(LatLng)
@@ -100,7 +179,7 @@ function getAddress(LatLng)
 		if (status == google.maps.GeocoderStatus.OK) 
 		{
 			$('#geoAddress').html(address[0].formatted_address);
-				setMapHeight();
+			setMapHeight();
 		}
 	});
 }

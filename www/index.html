@@ -8,11 +8,12 @@
 			.ui-title {	margin: 0 10px !important; }
 			.ui-header{	padding-top: 10px !important;	}
 		</style>
-		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+		<link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css">
 		
 		<script src="http://maps.google.com/maps/api/js?key=AIzaSyCIAkO_qU8Z3PUpjP26_7i3phsSI9l2fpM"></script>
-		<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-		<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+		
+		<script src="js/jquery-1.11.3.min.js"></script>
+		<script src="js/jquery.mobile-1.4.5.min.js"></script>
 		
 		<script type="text/javascript" charset="utf-8" src="cordova.js"></script>
 		<script type="text/javascript" src="js/index.js"></script>
@@ -20,20 +21,20 @@
 	<body>
 		
 		<div data-role="page" id="page1">
-			<div data-role="header" data-position="fixed" id="p1Header">
+			<div data-role="header" data-position="fixed" id="p1Header" data-tap-toggle="false">
 				<h1>ShuOu</h1>
 			</div>
 			
-			<div data-role="content" class="ui-content" id="p1Content" zstyle="background-color: yellow;">
-				<div id="geoAddress" zstyle="height:50px;"></div>
-				<div id="map" style="border: 1px solid; height:50px; width: 100%;"></div>
+			<div data-role="content" id="p1Content" data-tap-toggle="false" style="overflow: hidden;">
+				<div id="geoAddress"></div>
+				<div id="map" style="border: 1px solid; height:150px; width: 100%;"></div>
 			</div>
 			
-			<div data-role="footer" data-position="fixed" id="p1footer">
+			<div id="p1footer" data-role="footer" data-position="fixed" data-tap-toggle="false">
 				<table width="100%">
 					<tr>
-						<td align="left"><a href="#page2" data-role="button" data-icon="info" data-inline="true" style="margin-left:.625em;">Geo Info</a></td>
-						<td align="right"><a href="javascript:onDeviceReady();" id="refresh" data-role="button" data-icon="refresh" data-inline="true">Refresh</a></td>
+						<td align="left"><a id="btnGeoInfo" href="#page2" data-role="button" data-icon="info" data-inline="true" style="margin-left:.625em;">Geo Info</a></td>
+						<td align="right"><a href="javascript:Locate();" id="refresh" data-role="button" data-icon="refresh" data-inline="true">Locate</a></td>
 					</tr>
 				</table>
 			</div>
@@ -41,11 +42,11 @@
 		
 		<div data-role="page" id="page2">
 		
-			<div data-role="header" data-position="fixed">
+			<div data-role="header" data-position="fixed" id="p2Header" data-tap-toggle="false">
 				<h1>ShuOu - Info</h1>
 			</div>
 			
-			<div data-role="content" class="ui-content">
+			<div data-role="content" class="ui-content" id="p2Content" data-tap-toggle="false">
 				<table cellpadding="5" border="1" class="ui-responsive" id="my-table">
 					<tr><td align="right">Latitude:</td><td><div id="geoLatitude"></div></td></tr>
 					<tr><td align="right">Longitude:</td><td><div id="geoLongitude"></div></td></tr>
@@ -57,11 +58,11 @@
 				</table>
 			</div>
 			
-			<div data-role="footer" data-position="fixed">
+			<div data-role="footer" data-position="fixed" id="p2footer" data-tap-toggle="false">
 				<table width="100%">
 					<tr>
-						<td align="left"><a href="#page1" data-role="button" data-icon="location" data-inline="true" style="margin-left:.625em;">Map</a></td>
-						<td align="right"><a href="javascript:onDeviceReady();" id="refresh" data-role="button" data-icon="refresh" data-inline="true">Refresh</a></td>
+						<td align="left"><a id="btnMap" href="#page1" data-role="button" data-icon="location" data-inline="true" style="margin-left:.625em;">Map</a></td>
+						<td align="right"><a href="javascript:Locate();" id="refresh" data-role="button" data-icon="refresh" data-inline="true">Locate</a></td>
 					</tr>
 				</table>
 			</div>
