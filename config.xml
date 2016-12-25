@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.cordova.geolocation" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.shuou.prod" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
 	<name>ShuOu</name>
-	<description>Get your address from current position</description>
-	<author email="mmmarcjr@gmail.com" href="http://cordova.io">Marc Morin</author>
+	<description>Get your complete address from current position with google map API.</description>
+	<author email="mmmarcjr@gmail.com" href="com.shuou">Marc Morin</author>
 	<content src="index.html" />
 	
 	<icon src="icon.png" />
