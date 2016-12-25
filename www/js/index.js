@@ -1,6 +1,6 @@
 var map;
 var marker;
-var MapZoom = 20;
+var MapZoom = 18;
 var MapTypeId = google.maps.MapTypeId.ROADMAP;
 
 document.addEventListener("deviceready", onDeviceReady, false);
