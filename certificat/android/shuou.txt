@@ -1,0 +1,4 @@
+﻿http://docs.phonegap.com/phonegap-build/signing/android/#generating-a-private-key
+
+keytool -genkey -v -keystore D:\Download\certificat\android\shuou_prod.keystore -alias shuou_prod -keyalg RSA -keysize 2048 -validity 10000
+pass zxczxcdede
